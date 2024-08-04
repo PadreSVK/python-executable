@@ -14,3 +14,7 @@
 ## Workflow/Actions
 
 CI use `main.py`, see [main.ymlL#28](./.github/workflows/main.yml#L28) and `requirements.txt` [main.yml#L23](./.github/workflows/main.yml#L23)
+
+get artifacts
+
+![artifacts](./docs/assets/action-get-artifacts.gif)
