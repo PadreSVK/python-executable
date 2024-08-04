@@ -1,4 +1,4 @@
-name: Build and Release
+name: Build and Create release artifacts
 
 on:
     push: 
@@ -32,38 +32,3 @@ jobs:
       with:
         name: my-app
         path: dist/
-
-  release:
-    runs-on: ubuntu-latest
-    needs: build
-    permissions: 
-      packages: 
-        write
-
-    steps:
-    - name: Download artifact
-      uses: actions/download-artifact@v3
-      with:
-        name: my-app
-        path: dist/
-
-    - name: Create GitHub Release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ github.ref }}
-        release_name: Release ${{ github.ref }}
-        draft: false
-        prerelease: false
-
-    - name: Upload Release Asset
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: dist/your_script.exe
-        asset_name: your_script.exe
-        asset_content_type: application/octet-stream
